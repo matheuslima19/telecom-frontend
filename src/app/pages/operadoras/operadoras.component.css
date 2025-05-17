@@ -1,0 +1,19 @@
+mat-card {
+  margin-bottom: 24px;
+  padding: 16px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.botoes {
+  display: flex;
+  gap: 12px;
+}
+
+.tabela table {
+  width: 100%;
+}

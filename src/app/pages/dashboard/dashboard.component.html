@@ -1,0 +1,36 @@
+<div class="dashboard-container" *ngIf="resumo">
+  <!-- Indicadores -->
+  <div class="card-grid">
+    <mat-card class="info-card">
+      <h4>Total de Faturas</h4>
+      <h1>{{ resumo.totalFaturas }}</h1>
+    </mat-card>
+
+    <mat-card class="info-card">
+      <h4>Valor Total Faturado</h4>
+      <h1>R$ {{ resumo.valorTotalFaturado | number:'1.2-2' }}</h1>
+    </mat-card>
+  </div>
+
+  <div class="chart-grid">
+    <mat-card class="chart-card">
+      <h5>Distribuição por Status</h5>
+      <canvas
+        baseChart
+        *ngIf="pizzaChartData"
+        [data]="pizzaChartData"
+        [type]="pizzaChartType">
+      </canvas>
+    </mat-card>
+
+    <mat-card class="chart-card">
+      <h5>Evolução Mensal</h5>
+      <canvas
+        baseChart
+        *ngIf="barChartData"
+        [data]="barChartData"
+        [type]="barChartType">
+      </canvas>
+    </mat-card>
+  </div>
+</div>

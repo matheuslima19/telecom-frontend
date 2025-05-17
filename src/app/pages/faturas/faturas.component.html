@@ -1,0 +1,100 @@
+<mat-card>
+  <h2>{{ editando ? 'Editar Fatura' : 'Nova Fatura' }}</h2>
+
+  <form [formGroup]="form" (ngSubmit)="salvar()" class="form">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Contrato</mat-label>
+      <mat-select formControlName="contratoId" required>
+        <mat-option *ngFor="let c of contratos" [value]="c.id">
+          {{ c.nomeFilial }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Data de Emissão</mat-label>
+      <input matInput type="date" formControlName="dataEmissao" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Data de Vencimento</mat-label>
+      <input matInput type="date" formControlName="dataVencimento" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Valor</mat-label>
+      <input matInput type="number" formControlName="valorCobrado" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status" required>
+        <mat-option value="Pendente">Pendente</mat-option>
+        <mat-option value="Paga">Paga</mat-option>
+        <mat-option value="Cancelada">Cancelada</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="botoes">
+      <button mat-flat-button color="primary" type="submit">Salvar</button>
+      <button mat-button type="button" (click)="cancelar()" *ngIf="editando">Cancelar</button>
+    </div>
+
+  </form>
+</mat-card>
+
+<mat-card class="tabela">
+  <h2>Faturas</h2>
+
+  <div class="table-responsive">
+    <table mat-table [dataSource]="faturas" class="mat-elevation-z2">
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let f">{{ f.id }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="contrato">
+        <th mat-header-cell *matHeaderCellDef>Contrato</th>
+        <td mat-cell *matCellDef="let f">{{ getNomeContrato(f.contratoId) }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="dataEmissao">
+        <th mat-header-cell *matHeaderCellDef>Emissão</th>
+        <td mat-cell *matCellDef="let f">{{ f.dataEmissao | date:'dd/MM/yyyy' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="dataVencimento">
+        <th mat-header-cell *matHeaderCellDef>Vencimento</th>
+        <td mat-cell *matCellDef="let f">{{ f.dataVencimento | date:'dd/MM/yyyy' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="valorCobrado">
+        <th mat-header-cell *matHeaderCellDef>Valor</th>
+        <td mat-cell *matCellDef="let f">R$ {{ f.valorCobrado | number:'1.2-2' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let f">{{ f.status }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="acoes">
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
+        <td mat-cell *matCellDef="let f">
+          <button mat-icon-button color="accent" (click)="editar(f)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="excluir(f.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+  </div>
+</mat-card>
