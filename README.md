@@ -53,12 +53,12 @@ http://localhost:4200
 
 ## 📁 Estrutura principal
 
-app/
-  pages/
-    dashboard/
-    operadoras/
-    contratos/
-    faturas/
-  layout/
-assets/
-environments/
+├── app/
+│   ├── pages/
+│   │   ├── dashboard/
+│   │   ├── operadoras/
+│   │   ├── contratos/
+│   │   └── faturas/
+│   └── layout/
+├── assets/
+└── environments/
